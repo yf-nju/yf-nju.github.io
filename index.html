@@ -8,91 +8,206 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
             color: #1a1a2e;
-            background: #f8f9fa;
+            background: #ffffff;
+            scroll-behavior: smooth;
         }
 
-        /* Hero Section */
+        /* ==================== Hero ==================== */
         .hero {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #fff;
-            padding: 80px 20px 60px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 40%, #0f3460 100%);
+            overflow: hidden;
+            padding: 40px 24px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(79,172,254,0.08) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,242,195,0.06) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
+            max-width: 720px;
+        }
+
+        .hero-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 8px 32px rgba(79,172,254,0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 8px 32px rgba(79,172,254,0.3); }
+            50% { box-shadow: 0 8px 48px rgba(79,172,254,0.5); }
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #a8d8ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .hero .subtitle {
             font-size: 1.2rem;
-            color: #a8d8ea;
-            max-width: 700px;
-            margin: 0 auto 16px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+            font-weight: 400;
         }
 
         .hero .tagline {
-            font-size: 1rem;
-            color: #8899aa;
-            max-width: 600px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-
-        /* Container */
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Section */
-        .section {
-            margin-bottom: 48px;
-        }
-
-        .section h2 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1a1a2e;
-            border-bottom: 3px solid #0f3460;
-            padding-bottom: 8px;
-            margin-bottom: 24px;
-        }
-
-        /* About */
-        .about p {
             font-size: 1.05rem;
-            color: #333;
-            margin-bottom: 16px;
+            color: rgba(255,255,255,0.4);
+            font-style: italic;
+            border-left: 3px solid #4facfe;
+            padding-left: 16px;
+            display: inline-block;
         }
 
-        .about .highlights {
+        .hero-scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+            animation: bounce 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ==================== Container ==================== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* ==================== Section ==================== */
+        .section {
+            margin-bottom: 72px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .section-header .icon {
+            font-size: 1.6rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 2px;
+        }
+
+        /* ==================== About ==================== */
+        .about-text {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 28px;
+            max-width: 800px;
+        }
+
+        .highlights {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
+            gap: 20px;
         }
 
         .highlight-card {
             background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border-left: 4px solid #0f3460;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
         }
 
         .highlight-card .label {
             font-size: 0.85rem;
-            font-weight: 600;
-            color: #0f3460;
+            font-weight: 700;
+            color: #4facfe;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         .highlight-card .value {
@@ -100,47 +215,123 @@
             color: #333;
         }
 
-        /* Experience */
-        .experience-item {
-            background: #fff;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        /* ==================== Experience Timeline ==================== */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
         }
 
-        .experience-item .company {
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, #4facfe, #00f2fe, #4facfe);
+            border-radius: 1px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 28px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #4facfe;
+        }
+
+        .timeline-item .company {
             font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-item .company .badge {
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #0f3460;
-        }
-
-        .experience-item .role {
-            font-size: 1rem;
-            color: #555;
-            margin: 4px 0;
-        }
-
-        .experience-item .date {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        /* Publications */
-        .pub-item {
-            background: #fff;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+            padding: 2px 10px;
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            letter-spacing: 0.3px;
         }
 
-        .pub-item .title {
+        .timeline-item .role {
+            font-size: 1rem;
+            color: #666;
+            margin: 4px 0 2px;
+        }
+
+        .timeline-item .date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item .desc {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== Publications ==================== */
+        .pub-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            border-left: 4px solid #4facfe;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pub-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .pub-card .title {
             font-size: 1.05rem;
             font-weight: 600;
             color: #1a1a2e;
+            margin-bottom: 6px;
         }
 
-        /* Skills */
+        .pub-card .badge-pub {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4facfe;
+            background: rgba(79,172,254,0.1);
+            padding: 2px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        /* ==================== Skills ==================== */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -149,16 +340,23 @@
 
         .skill-category {
             background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-2px);
         }
 
         .skill-category h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #0f3460;
-            margin-bottom: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #4facfe;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
         }
 
         .skill-tags {
@@ -168,14 +366,22 @@
         }
 
         .skill-tag {
-            background: #e8edf3;
+            background: #f0f4f8;
             color: #1a1a2e;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        /* Contact */
+        .skill-tag:hover {
+            background: #4facfe;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ==================== Contact ==================== */
         .contact-links {
             display: flex;
             flex-wrap: wrap;
@@ -186,52 +392,84 @@
         .contact-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: #fff;
             color: #1a1a2e;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            font-weight: 500;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 14px 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
 
         .contact-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            border-color: #4facfe;
         }
 
-        /* Footer */
+        .contact-link .link-icon {
+            font-size: 1.2rem;
+        }
+
+        /* ==================== Footer ==================== */
         footer {
             text-align: center;
-            padding: 32px 20px;
-            color: #888;
-            font-size: 0.9rem;
-            border-top: 1px solid #e8edf3;
+            padding: 40px 24px;
+            color: #aaa;
+            font-size: 0.85rem;
+            border-top: 1px solid #f0f0f0;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2rem; }
+        footer .footer-heart {
+            color: #ff6b6b;
+        }
+
+        /* ==================== Responsive ==================== */
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2.2rem; }
             .hero .subtitle { font-size: 1rem; }
+            .hero .tagline { font-size: 0.9rem; }
+            .container { padding: 40px 16px; }
+            .section-header h2 { font-size: 1.3rem; }
+            .timeline { padding-left: 24px; }
+            .timeline-item { padding: 16px 20px; }
+            .timeline-item::before { left: -20px; width: 10px; height: 10px; }
+            .timeline::before { left: 5px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-avatar { width: 72px; height: 72px; font-size: 2rem; }
+            .hero h1 { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ==================== Hero ==================== -->
     <section class="hero">
-        <h1>👋 Hi there, I'm Walter</h1>
-        <p class="subtitle">Algorithm Researcher — Reinforcement Learning &amp; Multimodal AI Specialist</p>
-        <p class="tagline">"Building intelligent agents that understand, create, and interact."</p>
+        <div class="hero-content">
+            <div class="hero-avatar">W</div>
+            <h1>Hi there, I'm Walter</h1>
+            <p class="subtitle">Algorithm Researcher — Reinforcement Learning &amp; Multimodal AI Specialist</p>
+            <p class="tagline">"Building intelligent agents that understand, create, and interact."</p>
+        </div>
+        <div class="hero-scroll">↓ Scroll</div>
     </section>
 
+    <!-- ==================== Content ==================== -->
     <div class="container">
 
         <!-- About -->
-        <section class="section about">
-            <h2>🧠 About Me</h2>
-            <p>
+        <section class="section" id="about">
+            <div class="section-header">
+                <span class="icon">🧠</span>
+                <h2>About Me</h2>
+            </div>
+            <p class="about-text">
                 I am an Algorithm Researcher with <strong>8 years of experience in Reinforcement Learning</strong>,
                 <strong>2 years in Game AI</strong>, and <strong>3+ years in Multimodal Generation</strong> (Image/Video).
                 My passion lies in bridging the gap between theoretical RL algorithms and large-scale industrial
@@ -254,50 +492,62 @@
         </section>
 
         <!-- Experience -->
-        <section class="section">
-            <h2>💼 Professional Experience</h2>
-
-            <div class="experience-item">
-                <div class="company">Alibaba Group (Tongyi Lab)</div>
-                <div class="role">Algorithm Researcher</div>
-                <div class="date">Jun 2025 — Present | Beijing</div>
-                <p style="margin-top:8px;color:#555;">
-                    Research focus on image data processing and post-training for image generation;
-                    released <strong>Z-Image</strong> model with <strong>12k+ GitHub Stars</strong>.
-                </p>
+        <section class="section" id="experience">
+            <div class="section-header">
+                <span class="icon">💼</span>
+                <h2>Professional Experience</h2>
             </div>
-
-            <div class="experience-item">
-                <div class="company">PixVerse (Algorithm Dept.)</div>
-                <div class="role">Algorithm Researcher</div>
-                <div class="date">Sep 2023 — Jun 2025 | Beijing</div>
-                <p style="margin-top:8px;color:#555;">
-                    Research focus on post-training for video generation.
-                </p>
-            </div>
-
-            <div class="experience-item">
-                <div class="company">Tencent (AI Platform Dept.)</div>
-                <div class="role">Algorithm Researcher</div>
-                <div class="date">Jul 2021 — Sep 2023 | Beijing</div>
-                <p style="margin-top:8px;color:#555;">
-                    Research focus on Game AI for popular titles including <strong>Call of Duty Mobile</strong>
-                    and <strong>Delta Force</strong>.
-                </p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="company">
+                        Alibaba Group (Tongyi Lab)
+                        <span class="badge">Current</span>
+                    </div>
+                    <div class="role">Algorithm Researcher</div>
+                    <div class="date">Jun 2025 — Present | Beijing</div>
+                    <div class="desc">
+                        Research focus on image data processing and post-training for image generation;
+                        released <strong>Z-Image</strong> model with <strong>12k+ GitHub Stars</strong>.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company">PixVerse (Algorithm Dept.)</div>
+                    <div class="role">Algorithm Researcher</div>
+                    <div class="date">Sep 2023 — Jun 2025 | Beijing</div>
+                    <div class="desc">
+                        Research focus on post-training for video generation.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company">Tencent (AI Platform Dept.)</div>
+                    <div class="role">Algorithm Researcher</div>
+                    <div class="date">Jul 2021 — Sep 2023 | Beijing</div>
+                    <div class="desc">
+                        Research focus on Game AI for popular titles including <strong>Call of Duty Mobile</strong>
+                        and <strong>Delta Force</strong>.
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Publications -->
-        <section class="section">
-            <h2>📝 Publications</h2>
-            <div class="pub-item">
+        <section class="section" id="publications">
+            <div class="section-header">
+                <span class="icon">📝</span>
+                <h2>Publications</h2>
+            </div>
+            <div class="pub-card">
                 <div class="title">Z-Image: An Efficient Image Generation Foundation Model with Single-Stream Diffusion Transformer</div>
+                <span class="badge-pub">📄 Preprint</span>
             </div>
         </section>
 
         <!-- Skills -->
-        <section class="section">
-            <h2>🛠️ Skills &amp; Tools</h2>
+        <section class="section" id="skills">
+            <div class="section-header">
+                <span class="icon">🛠️</span>
+                <h2>Skills &amp; Tools</h2>
+            </div>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3>Languages</h3>
@@ -331,19 +581,40 @@
         </section>
 
         <!-- Contact -->
-        <section class="section">
-            <h2>📫 Connect with Me</h2>
+        <section class="section" id="contact">
+            <div class="section-header">
+                <span class="icon">📫</span>
+                <h2>Connect with Me</h2>
+            </div>
             <div class="contact-links">
-                <a class="contact-link" href="mailto:yfwalter@gmail.com">📧 yfwalter@gmail.com</a>
-                <a class="contact-link" href="https://github.com/yfwalter" target="_blank">🐙 GitHub</a>
+                <a class="contact-link" href="mailto:yfwalter@gmail.com">
+                    <span class="link-icon">📧</span> yfwalter@gmail.com
+                </a>
+                <a class="contact-link" href="https://github.com/yf-nju" target="_blank">
+                    <span class="link-icon">🐙</span> GitHub
+                </a>
             </div>
         </section>
 
     </div>
 
+    <!-- ==================== Footer ==================== -->
     <footer>
-        <p>&copy; 2026 Walter. Built with ❤️</p>
+        <p>&copy; 2026 Walter. Built with <span class="footer-heart">♥</span></p>
     </footer>
+
+    <!-- ==================== Scroll Animation ==================== -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section').forEach(s => observer.observe(s));
+    </script>
 
 </body>
 </html>
